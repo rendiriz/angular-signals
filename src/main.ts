@@ -1,7 +1,17 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { importProvidersFrom } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 
-import { AppModule } from './app/app.module';
+import { ROUTES } from './app/routes';
+import { AppComponent } from './app/app.component';
 
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    importProvidersFrom(
+      BrowserModule,
+      RouterModule.forRoot(ROUTES, {
+        scrollPositionRestoration: 'top',
+      })
+    ),
+  ],
+}).catch((err) => console.error(err));
